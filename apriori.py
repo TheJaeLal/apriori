@@ -43,7 +43,7 @@ database = [frozenset(entry) for entry in database]
 
 for d in database:
 	print(d)
-	
+
 item_set = dict()
 
 #Get initial frequency Count for every item in database
@@ -59,19 +59,22 @@ print('***Initial Frequency Count***')
 for item in item_set:
 	print(item,':',item_set[item])	
 
-print('Enter Support_Threshold: ')
-threshold = int(input().strip())
+print('Enter Support_Threshold:')
+print('>>> ',end='')
+threshold = int(input())
+print('threshold =',threshold)
 
 while(True):
+
 	#Create a list of elements/sets whose support is greater than threshold
 	frequent_items = prune(item_set,threshold)
 
-	print('\n****Frequent_items****')
+	print('\n****Frequent Items****')
 	for f in frequent_items:
 		print(f)
 
 	#Stop if you only have 1 set/item left in frequent items
-	if len(frequent_items)==1:
+	if len(frequent_items)<=1:
 		break		
 
 	#Make sets using the sets/items from this list 
@@ -80,7 +83,16 @@ while(True):
 
 	#Get the count/frequency of new items/sets in the database
 	item_set = get_count(new_item_set,database)
+
+	print('\n***Frequency Count***')
+	for item in item_set:
+		print(item,':',item_set[item])
 	#print(item_set)
+
+	#Stop if you only have 1 set/item left in frequent items
+	if len(item_set)<=1:
+		frequent_items = item_set
+		break		
 
 print('***************************************************************')
 print('The most frequenty associated items are:')

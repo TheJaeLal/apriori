@@ -1,6 +1,9 @@
 #Transactions
 #TID:Items
-100:1,2,3
-200:2,3,5
-300:1,2,3,5
-400:2,5
+80:potato,onions
+100:bread,butter
+200:bread,butter,sauce
+300:cheese,bread,sauce
+400:cheese',sauce,mayo
+500:coriander,potato
+600:bread,potato
