@@ -1,11 +1,10 @@
-from collections import Counter
-
 database = [(1,3,4),(2,3,5),(1,2,3,5),(2,5)]
 
 threshold = 2
 
+
 #Database is a list of sets/frozenset
-database = [frozenset(x) for x in database]
+database = [frozenset(entry) for entry in database]
 
 # for d in database:
 # 	print(d)
@@ -21,6 +20,7 @@ item_set = dict()
 ###########Occurences/Frequency Calculation###########3
 for entry in database:
 	for item in entry:
+		item = frozenset([item])
 		if item in item_set:
 			item_set[item]+=1
 		else:
@@ -32,11 +32,11 @@ for item in item_set:
 
 #############Create a list of elements/sets whose support is greater than threshold#################
 
-frequent_items = [frozenset(item) for item in item_set if item_set[item] >= threshold]
+frequent_items = [item for item in item_set if item_set[item] >= threshold]
 
-# print('frequent_items')
-# for f in frequent_items:
-# 	print(f)
+print('frequent_items')
+for f in frequent_items:
+	print(f)
 
 
 ######Stop if you only have 1 set/item left in frequent items##############
@@ -49,8 +49,8 @@ if len(frequent_items)==1:
 new_item_set = list()
 
 for i in range(len(frequent_items)):
-	for j in range(i+1,len(frequent_list)):
-		new_set = item_list[i].union(item_list[j])		
+	for j in range(i+1,len(frequent_items)):
+		new_set = frequent_items[i].union(frequent_items[j])		
 		new_item_set.append(new_set)
 		
 print(new_item_set)		
