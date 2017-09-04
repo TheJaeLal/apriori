@@ -1,3 +1,10 @@
+def read_from_file(fname):
+	file = open(fname,'r')
+	dataset = file.read().split('\n')
+	dataset = [line.split(':')[1].split(',') for line in dataset if not (line.startswith('#') or line.strip()=="")]
+	file.close()
+	return dataset
+
 def prune(item_set,threshold):
 	#Remove items/sets whose frequency/count/support is less than threshold
 	return [item for item in item_set if item_set[item] >= threshold]
@@ -27,13 +34,16 @@ def get_count(new_item_set,database):
 	return item_set
 
 #**********Main Starts here***************
-database = [(1,3,4),(2,3,5),(1,2,3,5),(2,5)]
+input_file = 'input.dat'
 
-threshold = 2
+database = read_from_file(input_file)
 
 #Database is a list of sets/frozenset
 database = [frozenset(entry) for entry in database]
 
+for d in database:
+	print(d)
+	
 item_set = dict()
 
 #Get initial frequency Count for every item in database
@@ -48,6 +58,9 @@ for entry in database:
 print('***Initial Frequency Count***')
 for item in item_set:
 	print(item,':',item_set[item])	
+
+print('Enter Support_Threshold: ')
+threshold = int(input().strip())
 
 while(True):
 	#Create a list of elements/sets whose support is greater than threshold
