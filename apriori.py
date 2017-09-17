@@ -64,6 +64,9 @@ print('>>> ',end='')
 threshold = int(input())
 print('threshold =',threshold)
 
+#Initialization neccessary if only one item in item_set
+previous_item_set = item_set
+
 while(True):
 
 	#Create a list of elements/sets whose support is greater than threshold
@@ -74,12 +77,16 @@ while(True):
 		print(f)
 
 	#Stop if you only have 1 set/item left in frequent items
-	if len(frequent_items)<=1:
-		break		
+	if len(frequent_items)<1:
+		frequent_items = previous_item_set
+		break
 
+	print("\n***New Iteration***")
 	#Make sets using the sets/items from this list 
 	new_item_set = combine_sets(frequent_items)
 	#print(new_item_set)		
+
+	previous_item_set = frequent_items
 
 	#Get the count/frequency of new items/sets in the database
 	item_set = get_count(new_item_set,database)
@@ -88,14 +95,13 @@ while(True):
 	for item in item_set:
 		print(item,':',item_set[item])
 	#print(item_set)
+		
 
-	#Stop if you only have 1 set/item left in frequent items
-	if len(item_set)<=1:
-		frequent_items = item_set
-		break		
-
-print('***************************************************************')
+print('\n***************************************************************')
 print('The most frequenty associated items are:')
 for item in frequent_items:
-	print(item,end=' ')
+	tup = list()
+	for i in item:
+		tup.append(i)
+	print('{','{}'.format(" ,".join(tup)),'}')
 print('\n')
