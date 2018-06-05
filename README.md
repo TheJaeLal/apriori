@@ -1,2 +1,2 @@
 # Apriori
-Implementation of Apriori Data mining Algorithm
+Implementation of Association Rule Mining using Apriori Algorithm
